@@ -2,9 +2,14 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.AppNav {
+  background-color: lightgreen;
+  font-size: small;
+  padding: 10px;
+}
+
+.NavElement.active {
+  font-weight: bold;
 }
 
 @media (prefers-reduced-motion: no-preference) {
