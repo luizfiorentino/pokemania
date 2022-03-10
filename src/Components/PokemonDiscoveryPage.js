@@ -1,9 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import PokeVisitCard from "./PokeVisitCard";
 
 export default function PokemonDiscoveryPage() {
   const [pokes, set_pokes] = useState(null);
+  const [filter, set_filter] = useState(null);
 
   useEffect(() => {
     async function pokesPopping() {
@@ -15,10 +17,17 @@ export default function PokemonDiscoveryPage() {
     pokesPopping();
   }, []);
 
+  const updateFilter = (e) => {
+    set_filter(e.target.value);
+  };
+
   return (
     <div>
+      <input type="text" value={filter} onChange={updateFilter} />
       {pokes ? (
-        pokes.map((p) => <PokeVisitCard name={p.name} />)
+        pokes
+          .filter((p) => p.name.startsWith(filter))
+          .map((p, i) => <PokeVisitCard key={i} name={p.name} />)
       ) : (
         <p>Loading...</p>
       )}
