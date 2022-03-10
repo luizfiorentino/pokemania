@@ -5,7 +5,9 @@ import PokeVisitCard from "./PokeVisitCard";
 
 export default function PokemonDiscoveryPage() {
   const [pokes, set_pokes] = useState(null);
-  const [filter, set_filter] = useState(null);
+  const [filter, set_filter] = useState("");
+  const params = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function pokesPopping() {
@@ -15,10 +17,16 @@ export default function PokemonDiscoveryPage() {
       set_pokes(popinPokes.data.results);
     }
     pokesPopping();
+    if (params.filter) {
+      set_filter(params.filter);
+    } else {
+      set_filter("");
+    }
   }, []);
 
   const updateFilter = (e) => {
     set_filter(e.target.value);
+    navigate(`/${e.target.value}`);
   };
 
   return (
